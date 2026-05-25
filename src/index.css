@@ -1,0 +1,168 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .tab-nav-trigger-compact {
+    @apply relative h-12 px-0 bg-transparent text-navy-foreground/40 border-b-2 border-transparent font-bold text-[11px] uppercase tracking-widest transition-all hover:text-navy-foreground data-[state=active]:text-primary data-[state=active]:border-primary rounded-none shadow-none !important;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 220 20% 97%;
+    --foreground: 230 25% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 230 25% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 230 25% 10%;
+
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 230 25% 10%;
+
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
+
+    --accent: 160 84% 39%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 217 91% 60%;
+    --radius: 0.625rem;
+
+    /* Custom tokens */
+    --navy: 240 50% 14%;
+    --navy-light: 235 30% 22%;
+    --navy-foreground: 220 20% 97%;
+    --gold: 38 92% 50%;
+    --success: 160 84% 39%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 30 80% 15%;
+    --info: 217 91% 60%;
+
+    --chart-blue: 217 91% 60%;
+    --chart-teal: 160 84% 39%;
+    --chart-red: 0 84% 60%;
+    --chart-gold: 38 92% 50%;
+    --chart-muted: 220 9% 46%;
+
+    --sidebar-background: 240 50% 14%;
+    --sidebar-foreground: 220 20% 90%;
+    --sidebar-primary: 217 91% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 235 30% 22%;
+    --sidebar-accent-foreground: 220 20% 90%;
+    --sidebar-border: 235 30% 25%;
+    --sidebar-ring: 217 91% 60%;
+
+    --font-display: 'Space Grotesk', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-body: 'Space Grotesk', system-ui, sans-serif;
+
+    --gradient-primary: linear-gradient(135deg, hsl(217 91% 60%), hsl(200 80% 50%));
+    --gradient-success: linear-gradient(135deg, hsl(160 84% 39%), hsl(170 70% 45%));
+    --gradient-navy: linear-gradient(180deg, hsl(240 50% 14%), hsl(235 30% 22%));
+    --shadow-card: 0 1px 3px 0 hsl(220 20% 10% / 0.04), 0 1px 2px -1px hsl(220 20% 10% / 0.04);
+    --shadow-elevated: 0 4px 12px -2px hsl(220 20% 10% / 0.08), 0 2px 6px -2px hsl(220 20% 10% / 0.04);
+  }
+}
+
+@layer utilities {
+  .bg-navy {
+    background: hsl(var(--navy));
+  }
+  .bg-navy-light {
+    background: hsl(var(--navy-light));
+  }
+  .text-navy-foreground {
+    color: hsl(var(--navy-foreground));
+  }
+  .text-navy-foreground\/40 {
+    color: hsl(var(--navy-foreground) / 0.4);
+  }
+  .text-navy-foreground\/60 {
+    color: hsl(var(--navy-foreground) / 0.6);
+  }
+  .border-navy-light {
+    border-color: hsl(var(--navy-light));
+  }
+  .border-navy-light\/30 {
+    border-color: hsl(var(--navy-light) / 0.3);
+  }
+  .border-navy-light\/50 {
+    border-color: hsl(var(--navy-light) / 0.5);
+  }
+  .bg-navy-light\/30 {
+    background: hsl(var(--navy-light) / 0.3);
+  }
+  .text-success {
+    color: hsl(var(--success));
+  }
+  .text-warning {
+    color: hsl(var(--warning));
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+  code, pre, .mono {
+    font-family: var(--font-mono);
+  }
+}
+
+@layer components {
+  .dashboard-card {
+    @apply bg-card rounded-lg border border-border p-4;
+    box-shadow: var(--shadow-card);
+  }
+  .dashboard-card-elevated {
+    @apply bg-card rounded-lg border border-border p-5;
+    box-shadow: var(--shadow-elevated);
+  }
+  .kpi-value {
+    font-family: var(--font-mono);
+    @apply text-2xl font-semibold tracking-tight;
+  }
+  .kpi-label {
+    @apply text-xs font-medium uppercase tracking-wider text-muted-foreground;
+  }
+  .status-dot {
+    @apply inline-block w-2 h-2 rounded-full;
+  }
+  .status-dot-online {
+    @apply status-dot bg-accent;
+    animation: pulse-green 2s infinite;
+  }
+  .tab-section-title {
+    font-family: var(--font-display);
+    @apply text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4;
+  }
+  .navy-panel {
+    background: var(--gradient-navy);
+    @apply text-navy-foreground rounded-lg p-4;
+  }
+}
+
+@keyframes pulse-green {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}

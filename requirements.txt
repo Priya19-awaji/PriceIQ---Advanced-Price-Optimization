@@ -1,0 +1,17 @@
+numpy
+pandas
+flask
+flask-cors
+scipy
+scikit-learn
+matplotlib
+seaborn
+plotly
+openpyxl
+pyarrow
+requests
+streamlit
+altair
+pydeck
+pillow
+joblib
