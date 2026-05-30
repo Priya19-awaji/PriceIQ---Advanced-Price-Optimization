@@ -18,10 +18,13 @@ python --version 2>nul || echo  ERROR: Python (conda priceop) not found!
 echo.
 
 echo [2/3] Starting Flask Backend on port 5001...
-start "PriceIQ Backend" /MIN python "%~dp0backend.py"
+cd "%~dp0backend"
+start "PriceIQ Backend" /MIN python "api.py"
+cd "%~dp0"
 timeout /t 5 /nobreak >nul
 
 echo [3/3] Starting React Frontend on port 8080...
 echo   Open http://localhost:8080 in your browser
 echo.
-node "%~dp0node_modules\vite\bin\vite.js" --host --port 8080
+cd "%~dp0frontend"
+node "%~dp0frontend\node_modules\vite\bin\vite.js" --host --port 8080

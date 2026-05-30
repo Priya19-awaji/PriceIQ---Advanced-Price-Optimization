@@ -21,25 +21,18 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 
 # ── Data file discovery ──────────────────────────────────────────────────────
+from dotenv import load_dotenv
+load_dotenv() # Load variables from .env
+
 DATA_PATH = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), '..',
+    os.path.dirname(os.path.abspath(__file__)),
+    'Data',
     'AUTODOC Dashboard Copy new_KPI Details Table 2025 and 2026_20260415_2124.csv'
 )
-if not os.path.exists(DATA_PATH):
-    DATA_PATH = os.path.join(
-        os.path.dirname(os.path.abspath(__file__)),
-        'AUTODOC Dashboard Copy new_KPI Details Table 2025 and 2026_20260415_2124.csv'
-    )
-if not os.path.exists(DATA_PATH):
-    DATA_PATH = os.path.join(
-        os.path.dirname(os.path.abspath(__file__)),
-        'Data',
-        'AUTODOC Dashboard Copy new_KPI Details Table 2025 and 2026_20260415_2124.csv'
-    )
 
 # ── Import model-driven modules ─────────────────────────────────────────────
-from data_model import DataModel, KPIEngine
-from price_optimizer import PriceOptimizer, sigmoid_demand
+from core.data_model import DataModel, KPIEngine
+from core.price_optimizer import PriceOptimizer, sigmoid_demand
 
 app = Flask(__name__)
 CORS(app)

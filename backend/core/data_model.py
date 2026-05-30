@@ -92,15 +92,23 @@ class DataModel:
 
     # ── Loading ───────────────────────────────────────────────────────────────
     def load(self) -> 'DataModel':
-        """Load CSV, normalize columns, filter channel, compute calculated fields."""
-        print(f"[DataModel] Loading {self.csv_path}...")
+        """Load CSV or SQL, normalize columns, filter channel, compute calculated fields."""
+        use_sql = os.getenv("USE_SQL", "False").lower() in ('true', '1', 't', 'yes')
+        
+        if use_sql:
+            print("[DataModel] USE_SQL is True. Loading from SQL Server...")
+            from core.sql_connector import load_data_from_sql
+            iterator = [load_data_from_sql()]
+        else:
+            print(f"[DataModel] Loading CSV from {self.csv_path}...")
+            iterator = pd.read_csv(
+                self.csv_path,
+                chunksize=200_000,
+                low_memory=False,
+            )
 
         chunks = []
-        for i, chunk in enumerate(pd.read_csv(
-            self.csv_path,
-            chunksize=200_000,
-            low_memory=False,
-        )):
+        for i, chunk in enumerate(iterator):
             # Normalize column names: strip quotes and whitespace
             chunk.columns = [c.strip('"').strip() for c in chunk.columns]
 

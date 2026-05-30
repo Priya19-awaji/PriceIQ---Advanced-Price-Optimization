@@ -30,3 +30,6 @@ __pycache__/
 .env
 *.env
 
+# Data Files
+backend/Data/
+*.csv

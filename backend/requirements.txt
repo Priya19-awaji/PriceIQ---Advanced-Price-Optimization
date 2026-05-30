@@ -15,3 +15,6 @@ altair
 pydeck
 pillow
 joblib
+sqlalchemy
+pyodbc
+python-dotenv

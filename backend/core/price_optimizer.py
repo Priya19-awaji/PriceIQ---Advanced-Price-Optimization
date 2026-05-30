@@ -14,7 +14,7 @@ Purchase Price = Unit Cogs (cost to acquire the product)
 import numpy as np
 import pandas as pd
 from typing import Dict, List, Any, Optional, Tuple
-from data_model import DataModel
+from core.data_model import DataModel
 
 
 # ─── S-Curve Demand Model ────────────────────────────────────────────────────
