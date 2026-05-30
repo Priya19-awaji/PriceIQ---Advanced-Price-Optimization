@@ -257,7 +257,7 @@ const Index = () => {
         <div className="w-full">
           {/* Sticky Filter Bar (Only if not on overview) */}
           {activeTab !== 'overview' && (
-            <div className="bg-card border-b sticky top-[104px] z-40 shadow-sm animate-in slide-in-from-top-1 duration-300">
+            <div className="bg-card border-b sticky top-0 z-40 shadow-sm animate-in slide-in-from-top-1 duration-300">
               <div className="max-w-[1600px] mx-auto px-6 py-3 flex items-center gap-6">
                 <div className="flex items-center gap-2 flex-1 min-w-[150px]">
                   <Layers size={12} className="text-muted-foreground" />

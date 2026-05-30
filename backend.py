@@ -288,9 +288,10 @@ def cross_elasticity():
     bonus_pct = float(request.args.get('bonus_pct', 0.15))
     brand = request.args.get('brand', '')
     category = request.args.get('category', '')
+    pgs = request.args.get('pgs', '')
 
-    if not brand and not category:
-        return jsonify({'error': 'Either brand or category parameter is required'}), 400
+    if not brand and not category and not pgs:
+        return jsonify({'error': 'Either brand, category, or pgs parameter is required'}), 400
 
     try:
         data = run_pipeline(bonus_pct)
@@ -299,12 +300,15 @@ def cross_elasticity():
         if brand:
             filtered_skus = [r for r in recs if r['Brand'] == brand]
             entity_name = brand
-        else:
+        elif category:
             filtered_skus = [r for r in recs if r['Category'] == category]
             entity_name = category
+        else:
+            filtered_skus = [r for r in recs if r['PGS'] == pgs]
+            entity_name = pgs
 
         if not filtered_skus:
-            return jsonify({'error': f'{"Brand" if brand else "Category"} not found'}), 404
+            return jsonify({'error': f'{"Brand" if brand else "Category" if category else "PGS"} not found'}), 404
 
         # Limit heavy calculations to top 50 SKUs to prevent O(N^2) timeouts
         skus_calc = filtered_skus[:50]

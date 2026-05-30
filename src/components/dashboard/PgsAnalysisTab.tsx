@@ -250,7 +250,7 @@ export function PgsAnalysisTab({ recommendations, selectedRec, bonusPct = 0.15 }
               <BarChart data={data.substitutionRisk.slice(0, 10)} layout="vertical" margin={{ left: 60, right: 30 }}>
                 <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} opacity={0.1} />
                 <XAxis type="number" domain={[0, 1]} hide />
-                <YAxis dataKey="pno" type="pgs" tick={{fontSize: 10, fontWeight: 'bold'}} width={60} />
+                <YAxis dataKey="pno" type="category" tick={{fontSize: 10, fontWeight: 'bold'}} width={60} />
                 <Tooltip 
                   cursor={{fill: 'hsl(var(--muted)/0.3)'}}
                   contentStyle={{ backgroundColor: 'hsl(var(--card))', borderRadius: '8px', fontSize: '11px', border: '1px solid hsl(var(--border))' }}

@@ -275,6 +275,7 @@ export async function fetchCrossElasticityData(params: { brand?: string; categor
   const queryParts: string[] = [`bonus_pct=${bonusPct.toFixed(4)}`];
   if (params.brand) queryParts.push(`brand=${encodeURIComponent(params.brand)}`);
   if (params.category) queryParts.push(`category=${encodeURIComponent(params.category)}`);
+  if (params.pgs) queryParts.push(`pgs=${encodeURIComponent(params.pgs)}`);
   const url = `${API_BASE}/cross-elasticity?${queryParts.join('&')}`;
   const res = await fetch(url);
   if (!res.ok) {

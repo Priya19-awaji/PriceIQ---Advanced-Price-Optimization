@@ -204,12 +204,12 @@ export function BrandAnalysisTab({ recommendations, model, bonusPct = 0.15 }: Pr
           <CardContent className="p-0">
             <div className="overflow-auto max-h-[400px]">
               <table className="w-full text-xs">
-                <thead className="bg-muted/30 sticky top-0 z-10">
+                <thead className="bg-card sticky top-0 z-10 shadow-sm">
                   <tr className="border-b border-muted text-muted-foreground">
-                    <th className="text-left p-3 font-bold uppercase tracking-widest">Brand</th>
-                    <th className="text-right p-3 font-bold uppercase tracking-widest">SKUs</th>
-                    <th className="text-right p-3 font-bold uppercase tracking-widest">NM Uplift</th>
-                    <th className="text-right p-3 font-bold uppercase tracking-widest">Avg Chg</th>
+                    <th className="text-left p-3 font-bold uppercase tracking-widest bg-card">Brand</th>
+                    <th className="text-right p-3 font-bold uppercase tracking-widest bg-card">SKUs</th>
+                    <th className="text-right p-3 font-bold uppercase tracking-widest bg-card">NM Uplift</th>
+                    <th className="text-right p-3 font-bold uppercase tracking-widest bg-card">Avg Chg</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-muted/50">
