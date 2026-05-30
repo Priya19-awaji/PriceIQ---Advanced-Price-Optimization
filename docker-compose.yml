@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: priceiq-backend
+    ports:
+      - "5001:5001"
+    # Docker will load all environment variables directly from your .env file
+    env_file:
+      - ./backend/.env
+    volumes:
+      # Mount the Data folder so you can hot-swap CSVs without rebuilding the container
+      - ./backend/Data:/app/Data
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: priceiq-frontend
+    ports:
+      - "8080:80"  # Exposes Nginx port 80 to host machine port 8080
+    depends_on:
+      - backend
+    restart: unless-stopped

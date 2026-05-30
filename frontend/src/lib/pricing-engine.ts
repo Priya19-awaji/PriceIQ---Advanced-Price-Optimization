@@ -1,7 +1,7 @@
 // PriceIQ Pricing Engine — connects to Python Flask backend at localhost:5001
 // Model-driven architecture: all KPIs computed server-side from DataModel.
 
-const API_BASE = 'http://localhost:5001/api';
+const API_BASE = import.meta.env.PROD ? '/api' : 'http://localhost:5001/api';
 
 export interface SKUData {
   PNO: string;
