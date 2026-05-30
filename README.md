@@ -148,3 +148,12 @@ The frontend will:
 
 1. **Backend health check:** Visit `http://localhost:5001/api/health` — should return `{"status": "ok", ...}`
 2. **Frontend:** Visit `http://localhost:8080` — the PriceIQ dashboard should load with live data
+
+## 8. Recent Fixes & UI Polish
+
+The following critical UI/UX and backend integration fixes were recently implemented to improve stability and visual presentation:
+
+- **Missing Component Added:** Integrated missing `toggle` component from `shadcn-ui` which was causing `toggle-group` resolution errors and preventing the app from compiling.
+- **PGS Filter Contract Fixed:** Corrected a type mismatch (`type="pgs"` to `type="category"`) in `PgsAnalysisTab` and wired up the `pgs` query parameter in the `pricing-engine.ts` API client and `backend.py` routing, enabling accurate cross-elasticity filtering.
+- **Sticky Filter Bar Offset:** Fixed a scrolling overlap issue in `Index.tsx`. The sticky filter bar was detaching and overlapping with KPI cards on scroll because its `top` offset (`top-[104px]`) was misaligned with the scroll container's boundary. Changed to `top-0` to keep it flush.
+- **Opaque Table Headers:** Modified the translucent background (`bg-muted/30`) of the Detailed Brand Metrics table header in `BrandAnalysisTab` to be solid (`bg-card`). This prevents scrolling table rows from visually bleeding through the table header text.
