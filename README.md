@@ -1,96 +1,80 @@
-# PriceIQ Advanced Price Optimization - Technical Architecture
-
 # PriceIQ Advanced Price Optimization
 
 The Advanced Price Optimization system is a machine-learning driven platform designed for B2B wholesale pricing. It provides data-backed recommendations for SKU pricing to maximize net margin, factoring in complex B2B mechanisms like supplier and customer bonuses.
 
 > [!NOTE]
-> For a deep dive into the ML models, calculations, and data flow, please see the [Technical Architecture Document](Technical_Architecture.md).
+> For a deep dive into the ML models, containerized deployment, and data flow, please see the [Technical Architecture Document](Technical_Architecture.md).
 
 ---
 
-## 1. Environment Setup
+## 1. Getting the Data (Required)
 
-### Prerequisites
+Due to its size and security constraints, the large CSV dataset is **not** included in this GitHub repository. 
 
-| Tool | Purpose | Installation |
-|------|---------|-------------|
-| **Miniconda** | Python environment management | [miniconda.io](https://docs.conda.io/en/latest/miniconda.html) |
-| **Node.js** | Frontend build tooling | Bundled in `node-portable/` within the project folder, or install globally |
-
-### Python Environment (Conda)
-
-The Python backend runs inside a **conda environment named `priceop`**. This environment is managed externally via Miniconda (not stored inside the workspace) to keep the project folder lightweight.
-
-**Key Python dependencies** (full list in `backend/requirements.txt`):
-- `flask`, `flask-cors` (REST API server)
-- `numpy`, `pandas`, `scipy`, `scikit-learn` (ML operations)
-- `sqlalchemy`, `pyodbc` (SQL Server connection)
-
-**To recreate the environment from scratch:**
-
-```bash
-conda create -n priceop python=3.13 -y -c conda-forge --override-channels
-conda activate priceop
-pip install -r backend/requirements.txt
-```
-
-### Node.js / Frontend Dependencies
-
-Frontend dependencies are managed via `npm` and stored in `frontend/node_modules/`. To reinstall if missing:
-
-```bash
-cd frontend
-npm install
-```
+**Before running the application on any new laptop, you must:**
+1. Open a web browser and log into your company's OneDrive.
+2. Download the full dataset CSV file.
+3. Place the downloaded CSV file into the `backend/Data/` folder.
 
 ---
 
 ## 2. Configuration (CSV vs SQL Server)
 
-The application supports hot-swapping between local CSV data and a live SQL Server database.
+The application supports hot-swapping between the local CSV data and a live SQL Server database.
 
 1. Navigate to the `backend/` directory.
 2. Rename `.env.example` to `.env` (this file is ignored by git to protect your credentials).
-3. Open `.env` and configure your credentials. Set `USE_SQL=True` to connect to your database, or `USE_SQL=False` to fallback to the local CSV.
+3. Open `.env` and configure your credentials. 
+   - Set `USE_SQL=True` to connect to your live database.
+   - Set `USE_SQL=False` to fallback to the local CSV in `backend/Data/`.
 
 ---
 
-## 3. How to Run the Application
+## 3. Running with Docker (Recommended)
 
-### Option A: Quick Start (via start.bat)
+The easiest way to run the application across any environment is using Docker.
 
-The simplest way to launch both backend and frontend together from the root directory:
+### Prerequisites
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running.
 
+### Quick Start
+1. Ensure your `.env` file is set up and your CSV is in `backend/Data/`.
+2. Open a terminal in the root directory (where `docker-compose.yml` is located).
+3. Run:
 ```bash
-start.bat
+docker-compose up --build -d
+```
+4. Open your browser and navigate to `http://localhost:8080`.
+
+To stop the containers:
+```bash
+docker-compose down
 ```
 
-This script will automatically start the Flask backend on port 5001 and the React Vite frontend on port 8080.
+---
 
-### Option B: Run Backend & Frontend Separately (Recommended for Development)
+## 4. Local Development Without Docker
 
-**Terminal 1 — Backend (Flask API):**
+If you prefer to run the application natively for development purposes:
+
+### Prerequisites
+| Tool | Purpose | Installation |
+|------|---------|-------------|
+| **Miniconda** | Python environment management | [miniconda.io](https://docs.conda.io/en/latest/miniconda.html) |
+| **Node.js** | Frontend build tooling | [nodejs.org](https://nodejs.org/) |
+
+### Step 1: Backend (Terminal 1)
 ```bash
+conda create -n priceop python=3.13 -y -c conda-forge --override-channels
 conda activate priceop
 cd backend
+pip install -r requirements.txt
 python api.py
 ```
 
-**Terminal 2 — Frontend (React + Vite):**
+### Step 2: Frontend (Terminal 2)
 ```bash
 cd frontend
+npm install
 npm run dev -- --port 8080 --host
 ```
-
----
-
-## 4. Recent Fixes & UI Polish
-
-The following critical UI/UX and backend integration fixes were recently implemented:
-
-- **Monorepo Restructure:** Safely separated frontend and backend into isolated folders for easier Docker containerization and maintenance. Added SQL Server connector via SQLAlchemy.
-- **Missing Component Added:** Integrated missing `toggle` component from `shadcn-ui`.
-- **PGS Filter Contract Fixed:** Corrected a type mismatch (`type="pgs"` to `type="category"`) in `PgsAnalysisTab`.
-- **Sticky Filter Bar Offset:** Fixed a scrolling overlap issue in `Index.tsx`. Changed `top-[104px]` to `top-0` to keep it flush.
-- **Opaque Table Headers:** Modified the translucent background (`bg-muted/30`) of the Detailed Brand Metrics table header in `BrandAnalysisTab` to be solid (`bg-card`).
