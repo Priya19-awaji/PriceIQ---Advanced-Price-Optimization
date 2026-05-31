@@ -21,6 +21,7 @@ The application is built as a **Monorepo** containing a clean, decoupled client-
 - **`backend/api.py`**: The Flask application entry point. Exposes RESTful API endpoints. Responses are cached in-memory for performance.
 - **`backend/core/data_model.py`**: Handles data ingestion. It acts as a unified abstraction layer—fetching data from either SQL Server or a local CSV depending on the `.env` configuration.
 - **`backend/core/price_optimizer.py`**: The core ML engine. Uses an S-Curve demand model to estimate price-volume elasticity.
+- **`backend/tests/`**: Comprehensive test suite ensuring the robustness of the Flask API, data transformations, and ML edge cases.
 
 ### 2.2 Frontend (React / TypeScript)
 - **`src/lib/pricing-engine.ts`**: The API client. Fetches data from the backend using relative paths (`/api/...`) to ensure Docker compatibility.
