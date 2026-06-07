@@ -51,6 +51,13 @@ To stop the containers:
 docker-compose down
 ```
 
+### Cleaning up Old Builds
+If you rebuild the containers frequently, Docker keeps the older builds as "dangling" images, which can consume a lot of disk space over time. To clean up these unused older builds, run:
+```bash
+docker image prune -f
+```
+*(This command safely removes only the old builds that are not currently in use by any container).*
+
 ---
 
 ## 4. Local Development Without Docker
